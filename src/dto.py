@@ -10,19 +10,19 @@ class NewsRequest:
 
 
 @dataclass
-class NewsRecord:
-    headline: str
+class NewsHeadline:
+    title: str
     date: date
     body_url: str
 
     def __hash__(self):
-        return hash((self.date, self.headline))
+        return hash((self.date, self.title))
 
 
 @dataclass
-class PageDateRecords:
+class PageHeadlines:
     page_num: int
-    records: Iterable[NewsRecord]
+    records: Iterable[NewsHeadline]
 
     def __lt__(self, other):
         return all(map(lambda r: r.date < other, self.records))

@@ -3,7 +3,7 @@ from datetime import date, datetime
 
 from bs4 import BeautifulSoup
 
-from src.dto import NewsRecord
+from src.dto import NewsHeadline
 
 
 class OKXParser:
@@ -18,7 +18,7 @@ class OKXParser:
         links = soup.find_all('a', class_='okui-pagination-item')
         return int(links[-1].text)
 
-    def extract_news_from_page(self, page_content: str) -> list[NewsRecord]:
+    def extract_headlines_from_page(self, page_content: str) -> list[NewsHeadline]:
         result = []
         soup = BeautifulSoup(page_content, 'html.parser')
         news_list = soup.find_all('li', class_=self._article_class)
