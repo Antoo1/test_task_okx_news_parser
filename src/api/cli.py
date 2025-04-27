@@ -33,6 +33,7 @@ async def _main(start_date, end_date, folder):
 
         records = await OKXScrapingService().get_news_by_period(request)
         FileToFolderSaver().save_records_to_file(records, folder, filename=config.FILENAME)
+        click.echo(f'Results {config.FILENAME} saved in {folder}')
 
     except ValueError as e:
         logger.error(

@@ -50,5 +50,5 @@ $ python -m pytest -vvs
 
 ## run 
 ```bash
-uv run entrypoint
+uv run -- entrypoint.py --start-date 2025-04-20 --end-date 2025-04-21 --folder tmp
 ```
