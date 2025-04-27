@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from datetime import date
 from typing import Iterable
 
@@ -27,6 +27,11 @@ class NewsRecord:
 
     def __hash__(self):
         return hash((self.date, self.title))
+
+    def dump_dict(self):
+        resp = asdict(self)
+        resp['date'] = self.date.isoformat()
+        return resp
 
 
 @dataclass
