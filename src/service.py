@@ -48,7 +48,7 @@ class OKXScrapingService:
 
     async def _parse_news_record(self, news_headline: NewsHeadline) -> None:
         page_content = await self.page_provider.get_news_page_by_url(news_headline.body_url)
-        news_record_body =  self.parser.extract_news_record_from_page(page_content)
+        news_record_body =  self.parser.extract_news_body_from_page(page_content)
         self._record_storage.append(
             NewsRecord(
                 date=news_headline.date,

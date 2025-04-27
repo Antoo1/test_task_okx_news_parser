@@ -20,6 +20,16 @@ class NewsHeadline:
 
 
 @dataclass
+class NewsRecord:
+    title: str
+    date: date
+    body: str
+
+    def __hash__(self):
+        return hash((self.date, self.title))
+
+
+@dataclass
 class PageHeadlines:
     page_num: int
     records: Iterable[NewsHeadline]
