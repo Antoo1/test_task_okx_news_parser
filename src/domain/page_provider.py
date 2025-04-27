@@ -5,7 +5,7 @@ from async_lru import alru_cache
 
 from src.common.backoff import backoff
 from src.infrastructure.config import config
-
+from src.infrastructure.logger import logger
 
 TIMEOUT = .5
 
@@ -26,14 +26,14 @@ class OKXPageProvider:
     @backoff(3, (ClientError, TimeoutError, ServerError), timeout=TIMEOUT)
     async def get_page_by_number(self, page_number: int) -> str:
         url = 'https://www.okx.com/help/section/announcements-latest-announcements/page/{page_num}'
+        url = url.format(page_num=page_number)
 
-        async with self._session as s:
-            resp = await s.get(url=url.format(page_num=page_number))
-            if resp.status >= 500:
-                raise ServerError(f'External Server: {resp.content[:200]}')
-            resp.raise_for_status()
-
-            return await resp.text()
+        resp = await self._session.get(url=url)
+        if resp.status >= 500:
+            raise ServerError(f'External Server: {resp.content[:200]}')
+        resp.raise_for_status()
+        logger.debug(f'loaded {url}')
+        return await resp.text()
 
     async def get_main_page(self):
         return await self.get_page_by_number(1)
@@ -44,10 +44,9 @@ class OKXPageProvider:
         _url = 'https://www.okx.com/'
         url = urllib.parse.urljoin(_url, url)
 
-        async with self._session as s:
-            resp = await s.get(url=url)
-            if resp.status >= 500:
-                raise ServerError(f'External Server: {resp.content[:200]}')
-            resp.raise_for_status()
-
-            return await resp.text()
+        resp = await self._session.get(url=url)
+        if resp.status >= 500:
+            raise ServerError(f'External Server: {resp.content[:200]}')
+        resp.raise_for_status()
+        logger.debug(f'loaded {url}')
+        return await resp.text()
