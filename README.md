@@ -1,4 +1,19 @@
 # test task okx_parser
+# task:
+**This script should be able to:**
+
+1. Specify a date range: Take START_DATE and END_DATE as inputs to define which news to fetch.
+2. Define output location: Accept a FOLDER parameter to designate where the downloaded data will be stored. 
+3. Capture full content: Scrape both the title and body of each news article. 
+4. Avoid APIs: Strictly do not use any official OKX APIs; direct web scraping is required. 
+5. Organize output: Store the extracted news within the specified FOLDER, using a file structure of your choice.
+
+**Key Considerations:**
+
+1. Maintainability: Design the project structure with future development and collaboration in mind. How can it be easily versioned, installed, and used by other developers?
+2. Library usage: Any reasonable Python libraries are permissible. 
+3. Deployment readiness: Anticipate potential issues when deploying this solution on a remote server and consider proactive measures to mitigate them.
+
 ## possible solutions:
 
 ### Solution 1. parse all existing news and save it in local storage:
